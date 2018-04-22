@@ -1,0 +1,15 @@
+.mixin.out
+backups
+cache
+libraries
+logs
+mods
+scripts
+snapshots-server
+autostart.stamp
+*.log
+*.jar
+*.dll
+usercache.json
+usernamecache.json
+*.zip
