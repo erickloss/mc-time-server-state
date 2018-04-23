@@ -43,10 +43,6 @@
       "enable": true
     },
     "lava_lakes": {
-      "lineWith": {
-        "block": "biomesoplenty:ash_block",
-        "properties": {}
-      },
       "liquid": {
         "block": "minecraft:lava",
         "properties": {
