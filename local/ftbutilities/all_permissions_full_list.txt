@@ -1,4 +1,4 @@
-9724 nodes in total
+9721 nodes in total
 Modifying this file won't have any effect!
 
 enderio.attack.block_killer_joe: ALL
@@ -504,7 +504,6 @@ ftbutilities.claims.block.edit.biomesoplenty.sapling_0: OP
 ftbutilities.claims.block.edit.biomesoplenty.sapling_1: OP
 ftbutilities.claims.block.edit.biomesoplenty.sapling_2: OP
 ftbutilities.claims.block.edit.biomesoplenty.seaweed: OP
-ftbutilities.claims.block.edit.biomesoplenty.stone_formations: OP
 ftbutilities.claims.block.edit.biomesoplenty.terrarium: OP
 ftbutilities.claims.block.edit.biomesoplenty.tree_moss: OP
 ftbutilities.claims.block.edit.biomesoplenty.umbran_door_block: OP
@@ -2927,7 +2926,6 @@ ftbutilities.claims.block.interact.biomesoplenty.sapling_0: OP
 ftbutilities.claims.block.interact.biomesoplenty.sapling_1: OP
 ftbutilities.claims.block.interact.biomesoplenty.sapling_2: OP
 ftbutilities.claims.block.interact.biomesoplenty.seaweed: OP
-ftbutilities.claims.block.interact.biomesoplenty.stone_formations: OP
 ftbutilities.claims.block.interact.biomesoplenty.terrarium: OP
 ftbutilities.claims.block.interact.biomesoplenty.tree_moss: OP
 ftbutilities.claims.block.interact.biomesoplenty.umbran_door_block: ALL
@@ -5516,7 +5514,6 @@ ftbutilities.claims.item.biomesoplenty.sapling_1: ALL
 ftbutilities.claims.item.biomesoplenty.sapling_2: ALL
 ftbutilities.claims.item.biomesoplenty.seaweed: ALL
 ftbutilities.claims.item.biomesoplenty.shroompowder: ALL
-ftbutilities.claims.item.biomesoplenty.stone_formations: ALL
 ftbutilities.claims.item.biomesoplenty.terrarium: ALL
 ftbutilities.claims.item.biomesoplenty.terrestrial_artifact: ALL
 ftbutilities.claims.item.biomesoplenty.tree_moss: ALL
