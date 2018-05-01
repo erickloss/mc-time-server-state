@@ -1,0 +1,9 @@
+{
+  "name": "oc-gui-api",
+  "entryPoint": "GUI",
+  "files": [
+    "GUI.lua",
+    "shapes_default.lua",
+    "term_mod.lua"
+  ]
+}

@@ -1,9 +1,12 @@
 local component = require("component")
 local reactorGuiApi = require("reactorGui")
+local sides = require("sides")
 local reactor = component.br_reactor
 local reactorServerApi = require("reactorServer")
--- reactor proxy tunnel card
-local reactorProxyAddress = "2c8108f3-a8be-4a11-a333-fd7f2a153adc"
+
+local reactorProxyTunnelCardAddress = "2c8108f3-a8be-4a11-a333-fd7f2a153adc"
+-- local components
+local fuelControlRedstoneAddress = "d09e8441-343f-432b-8c1f-ed6a2d4a0ccf"
 
 -- state for the reactor controller application
 local state = {
@@ -14,9 +17,7 @@ local state = {
 local autoOnModel = {
     get = function() return state.autoOnEnabled end,
     set = function(value)
-        print(value)
-        print(state.autoOnEnabled)
-        if not (state.autoOnEnabled == value) then
+        if state.autoOnEnabled ~= value then
             state.autoOnEnabled = value
             reactorRemote.reactorState()
         end
@@ -26,8 +27,21 @@ local autoOnModel = {
 local autoOffModel = {
     get = function() return state.autoOffEnabled end,
     set = function(value)
-        if not (state.autoOffEnabled == value) then
+        if state.autoOffEnabled ~= value then
             state.autoOffEnabled = value
+            reactorRemote.reactorState()
+        end
+    end
+}
+
+local fuelControlRedstone = component.proxy(component.get(fuelControlRedstoneAddress))
+local autoFuelInputModel = {
+    get = function() return fuelControlRedstone.getOutput(sides.bottom) > 0 end,
+    set = function(value)
+        local currentRedstoneValue = fuelControlRedstone.getOutput(sides.bottom) > 0 and 255 or 0
+        local redstoneValueToSet = value and 255 or 0
+        if currentRedstoneValue ~= redstoneValueToSet then
+            fuelControlRedstone.setOutput(sides.bottom, redstoneValueToSet)
             reactorRemote.reactorState()
         end
     end
@@ -57,11 +71,12 @@ local reactorStateModel = {
 }
 
 reactorRemote = reactorServerApi.createServer(
-    reactorProxyAddress,
+    reactorProxyTunnelCardAddress,
     component.tunnel,
     reactorStateModel,
     autoOnModel,
-    autoOffModel
+    autoOffModel,
+    autoFuelInputModel
 )
 
 function autoOff()
@@ -80,7 +95,7 @@ end
 
 function runReactorControl()
     component.gpu.setResolution(64, 22)
-    local gui = reactorGuiApi.create(reactorStateModel, autoOnModel, autoOffModel)
+    local gui = reactorGuiApi.create(reactorStateModel, autoOnModel, autoOffModel, autoFuelInputModel)
     reactorRemote.start()
     while true do
         if state.autoOffEnabled then autoOff() end

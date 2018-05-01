@@ -1,4 +1,4 @@
-9721 nodes in total
+9722 nodes in total
 Modifying this file won't have any effect!
 
 enderio.attack.block_killer_joe: ALL
@@ -5495,7 +5495,6 @@ ftbutilities.claims.item.biomesoplenty.pine_door: ALL
 ftbutilities.claims.item.biomesoplenty.pine_fence: ALL
 ftbutilities.claims.item.biomesoplenty.pine_fence_gate: ALL
 ftbutilities.claims.item.biomesoplenty.pine_stairs: ALL
-ftbutilities.claims.item.biomesoplenty.pixie_dust: ALL
 ftbutilities.claims.item.biomesoplenty.planks_0: ALL
 ftbutilities.claims.item.biomesoplenty.plant_0: ALL
 ftbutilities.claims.item.biomesoplenty.plant_1: ALL
@@ -6078,6 +6077,7 @@ ftbutilities.claims.item.draconicevolution.crystal_binder: ALL
 ftbutilities.claims.item.draconicevolution.debugger: ALL
 ftbutilities.claims.item.draconicevolution.dislocator: ALL
 ftbutilities.claims.item.draconicevolution.dislocator_advanced: ALL
+ftbutilities.claims.item.draconicevolution.dislocator_bound: ALL
 ftbutilities.claims.item.draconicevolution.dislocator_pedestal: ALL
 ftbutilities.claims.item.draconicevolution.dislocator_receptacle: ALL
 ftbutilities.claims.item.draconicevolution.diss_enchanter: ALL
@@ -9419,6 +9419,7 @@ ftbutilities.claims.item.thermalfoundation.armor.plate_tin: ALL
 ftbutilities.claims.item.thermalfoundation.bait: ALL
 ftbutilities.claims.item.thermalfoundation.coin: ALL
 ftbutilities.claims.item.thermalfoundation.diagram_redprint: ALL
+ftbutilities.claims.item.thermalfoundation.dye: ALL
 ftbutilities.claims.item.thermalfoundation.fertilizer: ALL
 ftbutilities.claims.item.thermalfoundation.fluid_aerotheum: ALL
 ftbutilities.claims.item.thermalfoundation.fluid_crude_oil: ALL

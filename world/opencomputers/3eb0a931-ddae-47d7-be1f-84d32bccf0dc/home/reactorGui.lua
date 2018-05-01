@@ -5,15 +5,15 @@ local guiApi = require("gui")
 -- reactor control GUI module
 local reactorGuiApi = {}
 
-function reactorGuiApi.create(reactorStateModel, autoOnModel, autoOffModel)
+function reactorGuiApi.create(reactorStateModel, autoOnModel, autoOffModel, autoFuelInputModel)
     local publicApi = {}
     -- error fallback
     publicApi.update = function(_) os.exit() end
-    _createGui(publicApi, reactorStateModel, autoOnModel, autoOffModel)
+    _createGui(publicApi, reactorStateModel, autoOnModel, autoOffModel, autoFuelInputModel)
     return publicApi
 end
 
-function _createGui(publicApi, reactorStateModel, autoOnModel, autoOffModel)
+function _createGui(publicApi, reactorStateModel, autoOnModel, autoOffModel, autoFuelInputModel)
     local startTime = computer.uptime()
     print(string.format("Starting reactor GUI... (%i seconds since machine boot)", startTime))
     local w, h = gpu.getResolution()
@@ -41,6 +41,14 @@ function _createGui(publicApi, reactorStateModel, autoOnModel, autoOffModel)
         autoOffModel.set(checked)
     end
     autoOffCheckbox = _newLabeledCheckbox(gui, 3, 9, "Auto Off (> 90%)", autoOffModel.get(), autoOffCheckboxCallback)
+    -- auto fuel input checkbox
+    local autoFuelInputCheckbox
+    local autoFuelInputCheckboxCallback = function()
+        local checked = guiApi.getCheckboxStatus(gui, autoFuelInputCheckbox)
+        print(string.format("Auto Fuel Input: %s", checked and "Enabled" or "Disabled"))
+        autoFuelInputModel.set(checked)
+    end
+    autoFuelInputCheckbox = _newLabeledCheckbox(gui, 3, 10, "Auto Fuel Input", autoFuelInputModel.get(), autoFuelInputCheckboxCallback)
 
     -- shutdown button
     local shutdownButtonCallback = function()
@@ -62,6 +70,7 @@ function _createGui(publicApi, reactorStateModel, autoOnModel, autoOffModel)
         guiApi.setText(gui, uptimeLabel, string.format("Uptime: %i", computer.uptime() - startTime), false)
         guiApi.setCheckbox(gui, autoOnCheckbox, autoOnModel.get())
         guiApi.setCheckbox(gui, autoOffCheckbox, autoOffModel.get())
+        guiApi.setCheckbox(gui, autoFuelInputCheckbox, autoFuelInputModel.get())
         guiApi.displayGui(gui)
     end
     print(string.format("Started reactor GUI after %i seconds", computer.uptime() - startTime))

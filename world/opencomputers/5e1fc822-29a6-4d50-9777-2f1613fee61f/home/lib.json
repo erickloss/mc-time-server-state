@@ -1,0 +1,7 @@
+{
+  "name": "main-controller",
+  "dependencies": {
+    "remote-app": "lib@github#erickloss:oc-lua-scripts:master:remote-app/",
+    "oc-gui-api": "lib@github#erickloss:OC-GUI-API:master:/"
+  }
+}

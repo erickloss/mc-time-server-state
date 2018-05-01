@@ -1,10 +1,10 @@
+local llm = require("llm")
+local remoteApp = llm:require("remote-app")
 local component = require("component")
 local sides = require("sides")
 local serialization = require("serialization")
-local remoteAppApi = require("remote-app")
 
--- oreberry tower proxy (tunnel card address)
-local oreberryProxyAddress = "6d28d35d-4b48-42ee-b653-8217a79e79ac"
+local oreberryProxyTunnelCardAddress = "6d28d35d-4b48-42ee-b653-8217a79e79ac"
 
 local sideExport = sides.south
 local sideGatherers = sides.east
@@ -66,9 +66,9 @@ local function _setGatherers(sender, enabled)
     end
 end
 
-local remote = remoteAppApi.createTunnelRemote(
+local remote = remoteApp.createTunnelRemote(
     "oreberryTower_server",
-    oreberryProxyAddress,
+    oreberryProxyTunnelCardAddress,
     {
         oreberryTowerState = _sendState
     }, {
@@ -79,7 +79,7 @@ local remote = remoteAppApi.createTunnelRemote(
     component.tunnel
 )
 
-local executor = remoteAppApi.createGenericExecutor(remote)
+local executor = remoteApp.createGenericExecutor(remote)
 
 local function main(...)
     remote.start()

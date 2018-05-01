@@ -1,0 +1,6 @@
+{
+  "name": "tree-farm-controller",
+  "dependencies": {
+    "remote-app": "lib@github#erickloss:oc-lua-scripts:master:remote-app/"
+  }
+}
