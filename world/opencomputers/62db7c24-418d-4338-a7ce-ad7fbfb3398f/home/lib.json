@@ -1,0 +1,8 @@
+{
+  "name": "test-app",
+  "dependencies": {
+    "json": "file@github#IgorTimofeev:OpenComputers:master:lib/json.lua",
+    "remote-app": "lib@github#erickloss:oc-lua-scripts:master:remote-app/",
+    "slack": "lib@github#erickloss:oc-lua-scripts:master:slack/"
+  }
+}
