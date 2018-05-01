@@ -6,12 +6,20 @@
 	"ranks": {
 		"player": {
 			"parent": "builtin_player",
-			"permissions": {}
+			"permissions": {},
+			"config": {
+				"ftbu.claims.max_chunks": 1000,
+				"ftbu.chunkloader.max_chunks": 1000
+			}
 		},
 		"op": {
 			"parent": "builtin_op",
 			"syntax": "<&2$name&r> ",
-			"permissions": {}
+			"permissions": {},
+			"config": {
+				"ftbu.claims.max_chunks": 1000,
+				"ftbu.chunkloader.max_chunks": 1000
+			}
 		}
 	}
 }
