@@ -13,11 +13,18 @@ local SCREEN_DASHBOARD = "dashboard"
 local SCREEN_REACTOR_OVERVIEW = "reactor_overview"
 
 
-local function readAll(file)
+local function readAsciiFont(file)
     local f = assert(io.open(file, "rb"))
     local content = f:read("*all")
     f:close()
-    return content
+
+    local width, height = 0, 0
+    for line in content:gmatch("%\n") do
+        width = string.len(line) > width and string.len(line) or width
+        height = height + 1
+    end
+
+    return content, width, height
 end
 
 
@@ -104,7 +111,7 @@ end
 local function _createDefaultScreen(layer, updateFunction)
     local screen = Screen:new(updateFunction)
     local w, h = gpu.getResolution()
-    local headerBg = guiApi.rect_full(1, 1, w - 1, 10, layer, SEC_COLOR, SEC_COLOR)
+    local headerBg = guiApi.rect_full(1, 1, w - 1, 8, layer, SEC_COLOR, SEC_COLOR)
     screen:addWidget("headerBg", headerBg, 1)
     return screen
 end
@@ -112,15 +119,59 @@ end
 local function _updateDashboard()
 end
 
+local TILE_COLOR_INITIALIZING = { f = 0x000000, b = 0xffffff }
+local TILE_COLOR_UP_AND_RUNNING = 0x000000
+local TILE_COLOR_STOPPED = 0x000000
+local TILE_COLOR_WARNING = 0x000000
+local TILE_COLOR_ERROR = 0x000000
+local function _dashboardTile(tileId, titleFile, targetScreen, xGrid, yGrid, layer, mainGui, screen, dashboardTitleH)
+    local function onClick()
+        mainGui:setActiveScreen(targetScreen)
+    end
+    local w, h = guiApi.getResolution()
+    local tileW, tileH, spacingV, spacingH = math.floor(w / 5), math.floor((h - dashboardTitleH) / 4), 3, 1
+    local tileX = (tileW + spacingV) * (xGrid - 1) + spacingV
+    local tileY = (tileH + spacingH) * (yGrid - 1) + spacingH + dashboardTitleH
+    local titleText, titleW, titleH = readAsciiFont(titleFile)
+    -- box
+    screen:addWidget(
+        tileId .. "_tileBg",
+        guiApi.rect_full(tileX, tileY, tileW, tileH, layer, TILE_COLOR_INITIALIZING.f, TILE_COLOR_INITIALIZING.b, onClick),
+        1
+    )
+    -- label
+    screen:addWidget(
+        tileId .. "_label",
+        guiApi.label(
+            tileX + math.floor(tileW / 2) - math.ceil(titleW / 2),
+            tileY + math.floor(tileH / 2) - math.ceil(titleH / 2),
+            titleW,
+            titleH,
+            layer,
+            TILE_COLOR_INITIALIZING.f,
+            TILE_COLOR_INITIALIZING.b,
+            onClick,
+            nil,
+            titleText
+        ),
+        2
+    )
+
+end
+
 local function _createDashboard(mainGui, layer)
     local w, h = guiApi.getResolution()
     local screen = _createDefaultScreen(layer, _updateDashboard, 0x0000ff)
 
-    local function onTitleClick()
-        mainGui:setActiveScreen(SCREEN_REACTOR_OVERVIEW)
-    end
-    local title = guiApi.labelbox(20, 2, 100, 8, layer, PRIM_COLOR, nil, onTitleClick, nil, readAll("/home/title.txt"))
-    screen:addWidget("title", title, 2)
+    -- main title ascii art
+    local titleText, titleW, titleH = readAsciiFont("/home/title.txt")
+    screen:addWidget("title", guiApi.labelbox(5, 2, 100, 6, layer, PRIM_COLOR, nil, nil, nil, titleText), 2)
+
+    -- tiles
+    _dashboardTile("reactorTile", "/home/reactorTileTitle.txt", SCREEN_REACTOR_OVERVIEW, 1, 1, layer, mainGui, screen, titleH)
+    _dashboardTile("reactorTile2", "/home/reactorTileTitle.txt", SCREEN_REACTOR_OVERVIEW, 1, 2, layer, mainGui, screen, titleH)
+    _dashboardTile("reactorTile3", "/home/reactorTileTitle.txt", SCREEN_REACTOR_OVERVIEW, 2, 1, layer, mainGui, screen, titleH)
+
     return screen
 end
 
@@ -136,6 +187,8 @@ local function _createReactorOverview(mainGui, layer)
     screen:addWidget("title", title, 2)
     return screen
 end
+
+
 
 local function mainGuiFactory()
     local screenFactories = {}
